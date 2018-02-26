@@ -1,0 +1,70 @@
+#include<iostream>
+#include<cstring>
+#include<string.h>
+#include<stdio.h> 
+using namespace std;
+
+bool isexit(char c, char s[7]) {
+	int i = 0;
+	while (s[i] != '\0') {
+		if (c == s[i])
+			return true;
+	}
+	return false;
+}
+bool isheavy(char c,char left[3][7],char right[3][7],char result[3][7]) {
+	//用该字符代表的硬币去检验三次结果，判断是否矛盾
+	int i = 0;
+	for (i = 0; i<3; i++) {
+		if (isexit(c, left[i])) {
+			if (strcmp(result[i],"up")!=0)
+				return false;
+		}
+		else if (isexit(c, right[i])) {
+			if (result[i] != "down")
+				return false;
+		}
+		else if (result[i] != "even")
+			return false;
+	}
+	return true;
+}
+bool islight(char c,char left[3][7], char right[3][7], char result[3][7]) {
+	//用该字符代表的硬币去检验三次结果，判断是否矛盾
+	int i = 0;
+	for (i = 0; i<3; i++) {
+		if (isexit(c, left[i])) {
+			if (result[i] != "down")
+				return false;
+		}
+		else if (isexit(c, right[i])) {
+			if (result[i] != "up")
+				return false;
+		}
+		else if (result[i] != "even")
+			return false;
+	}
+	return true;
+}
+int main() {
+	char left[3][7], right[3][7];
+	char result[3][7];
+	int t = 0, i = 0, n = 0;
+	char c;
+	cin >> n;
+	for (t = 0; t<n; t++) {
+		for (i = 0; i<3; i++)
+			scanf("%s %s %s", left[i], right[i],result[i]);	//字符的输入，由于空格不能接受空格，所以用scanf
+		for (c = 'A'; c <= 'L'; c++) {
+			if (isheavy(c,left,right,result)) {
+				cout << c << " is the counterfeit coin and it is heavy" << endl;
+				break;
+			}
+			if (islight(c)) {
+				cout << c << " is the counterfeit coin and it is light" << endl;
+				break;
+			}
+		}
+	}
+	return 0;
+}
