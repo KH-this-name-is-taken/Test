@@ -4,14 +4,7 @@
 #include<stdio.h> 
 using namespace std;
 
-bool isexit(char c, char s[7]) {
-	int i = 0;
-	while (s[i] != '\0') {
-		if (c == s[i])
-			return true;
-	}
-	return false;
-}
+
 bool isheavy(char c,char left[3][7],char right[3][7],char result[3][7]) {
 	//用该字符代表的硬币去检验三次结果，判断是否矛盾
 	int i = 0;
